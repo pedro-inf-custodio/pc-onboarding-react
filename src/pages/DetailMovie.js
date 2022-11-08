@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { URL_IMAGE_PATH, URL_DETAIL_MOVIE } from "../helpers/constants.js";
 import { fetchMovies } from "../helpers/fetchMovies.js";
+import SingleInfoCard from "../components/SingleInfoCard.jsx";
 
 function DetailMovie() {
   const [movieData, setMovieData] = useState();
@@ -13,8 +14,8 @@ function DetailMovie() {
   }, [!movieData]);
 
   return movieData ? (
-    <div className="w-screen py-16">
-      <div className="outline outline-offset-2 rounded outline-1 outline-black/10 bg-slate-50 p-4">
+    <div className="w-screen py-16 pr-32 pl-32">
+      <div className="outline outline-offset-2 rounded outline-1 outline-black/10 bg-gradient-to-b from-stone-200 to-stone-100 p-4">
         <div>
           <p className="capitalize text-3xl text-center py-4 font-bold">
             {movieData.title}
@@ -40,42 +41,11 @@ function DetailMovie() {
         </div>
 
         <div className="flex justify-center flex-row">
-          {movieData.vote_average ? (
-            <div className="flex flex-col">
-              <p className="font-bold text-center p-4">Vote Average:</p>
-              <p className="flex justify-center p-4">
-                {movieData.vote_average}
-              </p>
-            </div>
-          ) : null}
-
-          <div className="flex flex-col">
-            <p className="font-bold text-center p-4">Vote Count:</p>
-            <p className="flex justify-center p-4">{movieData.vote_count}</p>
-          </div>
-
-          {movieData.homepage ? (
-            <div className="flex flex-col">
-              <p className="font-bold text-center p-4">Homepage:</p>
-              <p className="flex justify-center p-4">{movieData.homepage}</p>
-            </div>
-          ) : null}
-
-          {movieData.release_date ? (
-            <div className="flex flex-col">
-              <p className="font-bold text-center p-4">Release Date:</p>
-              <p className="flex justify-center p-4">
-                {movieData.release_date}
-              </p>
-            </div>
-          ) : null}
-
-          {movieData.popularity ? (
-            <div className="flex flex-col">
-              <p className="font-bold text-center p-4">Popularity Ranking:</p>
-              <p className="flex justify-center p-4	">{movieData.popularity}</p>
-            </div>
-          ) : null}
+          <SingleInfoCard movieDataInfo={movieData.vote_average} />
+          <SingleInfoCard movieDataInfo={movieData.vote_count} />
+          <SingleInfoCard movieDataInfo={movieData.homepage} />
+          <SingleInfoCard movieDataInfo={movieData.release_date} />
+          <SingleInfoCard movieDataInfo={movieData.popularity} />
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ export default function App() {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="bg-slate-50 h-full font-light">
+    <div className="bg-gradient-to-tr from-stone-200 to-stone-50 h-full font-light">
       <SearchBar search={search} setSearch={setSearch} />
 
       <Routes>

@@ -15,7 +15,7 @@ export default function SearchBar({ search, setSearch }) {
   };
 
   return (
-    <div className="fixed top-0 w-full flex justify-center bg-slate-100 drop-shadow-md z-20">
+    <div className="fixed top-0 w-full flex justify-center bg-gradient-to-t from-stone-100 to-stone-50 drop-shadow-md z-20">
       <div className="w-full flex justify-center p-4 ">
         <form
           className="relative flex justify-center w-1/2"
@@ -27,7 +27,7 @@ export default function SearchBar({ search, setSearch }) {
             onChange={(e) => setSearch(e.target.value)}
           ></input>
           <button
-            className="absolute transition-all right-0 bg-slate-200 rounded p-2 hover:bg-slate-300 shadow"
+            className="absolute transition-all right-0 bg-stone-200 rounded p-2 hover:bg-stone-300 shadow"
             onClick={handleSubmit}
           >
             Submit

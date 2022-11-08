@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const SingleMovieCard = ({ movieData }) => {
   return (
-    <div className="outline outline-offset-2 rounded outline-1 outline-black/10 bg-slate-50">
+    <div className="outline outline-offset-2 rounded outline-1 outline-black/10 bg-gradient-to-t from-stone-200 to-stone-100">
       <div>
         <Link to={`/movie/${movieData.id}`}>
           <p className="capitalize text-3xl font-bold text-center p-2">
