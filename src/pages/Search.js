@@ -16,7 +16,7 @@ export default function Search() {
   }, [input]);
 
   return (
-    <div>
+    <div className="py-16">
       {movieData && <MoviesList popularMoviesData={movieData.results} />}
     </div>
   );

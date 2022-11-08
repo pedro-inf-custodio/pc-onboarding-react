@@ -14,17 +14,20 @@ export default function Home() {
     fetchMovies(URL_API_POPULAR_MOVIES).then(({ results }) =>
       setPopularMoviesData({ results })
     );
-  }, []);
+  }, [!popularMoviesData]);
 
   return (
-    <div className="py-16">
-      <span className="flex justify-center text-lg p-8 underline underline-offset-8">
+    <div className="p-20">
+      <span className="flex justify-center text-lg p-4 underline underline-offset-8">
         Most Popular movies
       </span>
-
-      {popularMoviesData && (
-        <MoviesList popularMoviesData={top5Movies(popularMoviesData.results)} />
-      )}
+      <div>
+        {popularMoviesData && (
+          <MoviesList
+            popularMoviesData={top5Movies(popularMoviesData.results)}
+          />
+        )}
+      </div>
     </div>
   );
 }

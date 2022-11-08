@@ -3,3 +3,5 @@ export const URL_API_SEARCH = `https://api.themoviedb.org/3/search/movie?api_key
 export const URL_API_POPULAR_MOVIES = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}`;
 
 export const URL_IMAGE_PATH = "https://image.tmdb.org/t/p/w440_and_h660_face";
+
+export const URL_DETAIL_MOVIE = `https://api.themoviedb.org/3/movie/{movie_id}?api_key=${process.env.REACT_APP_API_KEY}`;

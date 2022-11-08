@@ -15,7 +15,7 @@ export default function SearchBar({ search, setSearch }) {
   };
 
   return (
-    <div className="fixed top-0 w-full flex justify-center bg-slate-100">
+    <div className="fixed top-0 w-full flex justify-center bg-slate-100 drop-shadow-md z-20">
       <div className="w-full flex justify-center p-4 ">
         <form
           className="relative flex justify-center w-1/2"

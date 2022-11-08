@@ -3,7 +3,7 @@ import { SingleMovieCard } from "./SingleMovieCard";
 
 export const MoviesList = ({ popularMoviesData }) => {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen py-5">
       <div className="">
         {popularMoviesData.map((data) => (
           <SingleMovieCard key={data.id.toString()} movieData={data} />
