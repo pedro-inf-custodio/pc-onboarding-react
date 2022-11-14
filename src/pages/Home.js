@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { MoviesList } from "../components/MoviesList";
-import { fetchMovies } from "../helpers/fetchMovies.js";
+import { LargeContentList } from "../components/blocks/largeContent/LargeContentList";
+import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_API_POPULAR_MOVIES } from "../helpers/constants.js";
+import { top5PopularMovies } from "../helpers/top5Selection";
+import MovieHeaderImage from "../assets/movie-start.jpg";
 
-const top5Movies = (popularMoviesData) => {
-  return popularMoviesData.slice(0, 5);
-};
-
-export default function Home() {
+export default function Home({ showError, setShowError }) {
   const [popularMoviesData, setPopularMoviesData] = useState();
 
   useEffect(() => {
-    fetchMovies(URL_API_POPULAR_MOVIES).then(({ results }) =>
-      setPopularMoviesData({ results })
-    );
-  }, [!popularMoviesData]);
+    if (!popularMoviesData) {
+      fetchDataAPI(URL_API_POPULAR_MOVIES, setPopularMoviesData);
+    }
+  }, []);
 
   return (
-    <div className="p-20">
-      <span className="flex justify-center text-lg p-4 underline underline-offset-8">
-        Most Popular movies
-      </span>
-      <div>
+    <div className="mt-10 flex-row ">
+      <div
+        style={{ backgroundImage: `url(${MovieHeaderImage})` }}
+        className="relative h-96 shadow bg-fixed bg-cover bg-top saturate-50"
+      >
+        <span className="absolute top-0 font-bold text-9xl p-4 text-white">
+          Popular Movies
+        </span>
+      </div>
+
+      <div className="p-10">
         {popularMoviesData && (
-          <MoviesList
-            popularMoviesData={top5Movies(popularMoviesData.results)}
+          <LargeContentList
+            contentData={top5PopularMovies(popularMoviesData.results)}
+            media_type="movies"
           />
         )}
       </div>
