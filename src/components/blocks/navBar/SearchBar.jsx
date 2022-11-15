@@ -34,7 +34,9 @@ export default function SearchBar({ search, setSearch }) {
               onClick={null}
               buttonText={""}
               addedStyles={
-                submitHidden ? "hidden" : "w-10 h-10 opacity-80 rounded-full"
+                submitHidden
+                  ? "hidden"
+                  : "p-2 w-10 h-10 opacity-80 rounded-full"
               }
               search={true}
             />

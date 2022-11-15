@@ -1,15 +1,6 @@
 import React from "react";
 
 const DropdownList = ({ season, SetSeason, Seasons }) => {
-  let arraySeasons = [];
-  for (var i = 1; i <= Seasons; i++) {
-    arraySeasons.push(
-      <option value={i} label={i} selected={season === i ? "selected" : ""}>
-        {i}
-      </option>
-    );
-  }
-
   return (
     <div className="flex shadow">
       <select
@@ -19,7 +10,15 @@ const DropdownList = ({ season, SetSeason, Seasons }) => {
         className="rounded transition-all hover:bg-stone-300 w-16"
         onChange={(e) => SetSeason(e.target.value)}
       >
-        {arraySeasons}
+        {Array.from({ length: Seasons }).map((pageNumber, index) => (
+          <option
+            value={index + 1}
+            label={index + 1}
+            selected={season === index + 1 ? "selected" : ""}
+          >
+            {index + 1}
+          </option>
+        ))}
       </select>
     </div>
   );

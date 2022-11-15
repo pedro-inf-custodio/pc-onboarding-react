@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LargeContentList } from "../components/blocks/largeContent/LargeContentList";
+import { LargeContentList } from "../components/blocks/LargeContent/LargeContentList";
 import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_API_POPULAR_MOVIES } from "../helpers/constants.js";
 import { top5PopularMovies } from "../helpers/top5Selection";

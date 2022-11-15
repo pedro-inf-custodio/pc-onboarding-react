@@ -9,36 +9,37 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import Credits from "../components/blocks/Credits.jsx";
 import DetailCard from "../components/blocks/DetailCard.jsx";
 import Error from "../components/blocks/Error";
+import Loading from "./Loading";
 
 const Detail = ({ showError, setShowError }) => {
   const [detailData, setDetailData] = useState();
   const { media_type, id } = useParams();
 
+  const mediaTypeFetch = (url) => {
+    fetchDataAPI(
+      url.replace("{id}", id.toString()),
+      setDetailData,
+      setShowError
+    );
+  };
+
   useEffect(() => {
     if (media_type === "movies") {
-      fetchDataAPI(
-        URL_DETAIL_MOVIE.replace("{id}", id.toString()),
-        setDetailData,
-        setShowError
-      );
+      mediaTypeFetch(URL_DETAIL_MOVIE);
     } else if (media_type === "tv") {
-      fetchDataAPI(
-        URL_DETAIL_TV_SERIES.replace("{id}", id.toString()),
-        setDetailData,
-        setShowError
-      );
+      mediaTypeFetch(URL_DETAIL_TV_SERIES);
     } else if (media_type === "person") {
-      fetchDataAPI(
-        URL_DETAIL_PERSON.replace("{id}", id.toString()),
-        setDetailData,
-        setShowError
-      );
+      mediaTypeFetch(URL_DETAIL_PERSON);
     }
-  }, []);
+  }, [media_type, id]);
 
   return detailData ? (
     <div>
-      <div>{showError ? <Error /> : null}</div>
+      <div>
+        {showError ? (
+          <Error showError={showError} setShowError={setShowError} />
+        ) : null}
+      </div>
 
       <div className={showError ? "blur" : ""}>
         <div className="w-screen py-16 pr-32 pl-32">
@@ -47,7 +48,9 @@ const Detail = ({ showError, setShowError }) => {
         </div>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <Loading />
+  );
 };
 
 export default Detail;

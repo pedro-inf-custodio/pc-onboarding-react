@@ -2,7 +2,7 @@ import React from "react";
 import { URL_IMAGE_PATH } from "../../../helpers/constants.js";
 import { Link } from "react-router-dom";
 import LargeImage from "../../atoms/images/LargeImage.jsx";
-import Description from "../../atoms/Description.jsx";
+import Description from "../Description.jsx";
 
 export const SingleLargeContentCard = ({ contentData, media_type }) => {
   return (
@@ -23,11 +23,14 @@ export const SingleLargeContentCard = ({ contentData, media_type }) => {
               }
             >
               <p className="capitalize text-4xl font-bold text-center p-2">
-                {contentData.title}
+                {contentData.title ? contentData.title : contentData.name}
               </p>
             </Link>
           </div>
-          <Description detailData={contentData} overviewTitle={true} />
+          <Description
+            detailData={contentData}
+            overviewTitle={media_type === "person" ? false : true}
+          />
         </div>
       </div>
     </div>

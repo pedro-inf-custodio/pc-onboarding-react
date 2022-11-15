@@ -5,7 +5,7 @@ function Button({ onClick, buttonText, addedStyles, search = false }) {
   return (
     <div className="flex">
       <button
-        className={`transition-all bg-stone-200 rounded p-2 hover:bg-stone-300 shadow ${addedStyles}`}
+        className={`transition-all bg-stone-200 rounded hover:bg-stone-300 shadow ${addedStyles}`}
         onClick={onClick}
       >
         {search ? <AiOutlineSearch className="ml-1" size={18} /> : buttonText}

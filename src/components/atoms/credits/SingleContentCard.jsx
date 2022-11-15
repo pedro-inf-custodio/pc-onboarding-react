@@ -3,6 +3,7 @@ import SmallImage from "../images/SmallImage";
 import { URL_IMAGE_PATH } from "../../../helpers/constants";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SingleContentCard = ({ contentData, index }) => {
   const [hidden, setHidden] = useState(true);
@@ -16,7 +17,11 @@ const SingleContentCard = ({ contentData, index }) => {
       >
         <div className="flex justify-between mt-1">
           <p className="text-sm">
-            {contentData.name ? contentData.name : contentData.title}
+            {contentData.name ? (
+              <Link to={`/person/${contentData.id}`}>{contentData.name}</Link>
+            ) : (
+              <Link to={`/movies/${contentData.id}`}>{contentData.title}</Link>
+            )}
           </p>
           <BsFillCaretDownFill
             size={18}

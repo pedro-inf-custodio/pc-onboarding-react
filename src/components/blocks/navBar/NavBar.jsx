@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar.jsx";
 
 const NavBar = ({ search, setSearch }) => {
   return (
-    <div className="fixed top-0 w-full flex bg-stone-800 drop-shadow-md z-20">
+    <div className="fixed top-8 w-full flex bg-stone-800 drop-shadow-md z-20">
       <div className="flex justify-start">
         <Link to="/">
           <Button
@@ -32,10 +32,10 @@ const NavBar = ({ search, setSearch }) => {
             addedStyles={"p-2 w-24 mt-2 rounded-full font-thin hover:font-bold"}
           />
         </Link>
-        <Link to="/persons">
+        <Link to="/people">
           <Button
             onClick={null}
-            buttonText={"Person"}
+            buttonText={"People"}
             addedStyles={
               "p-2 w-24 ml-2 mt-2 rounded-full font-thin hover:font-bold"
             }

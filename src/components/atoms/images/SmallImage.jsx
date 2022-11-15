@@ -4,10 +4,10 @@ import { GoPerson } from "react-icons/go";
 
 const SmallImage = ({ URL, fetchedData, styles = "" }) => {
   return (
-    <div className={`flex justify-center flex-row rounded mt-2 ${styles}`}>
+    <div className={`flex justify-center flex-row h-[23rem] ${styles}`}>
       {fetchedData.poster_path || fetchedData.profile_path ? (
         <img
-          className="rounded-lg shadow w-44 h-1/2 transition-all hover:scale-[0.99]"
+          className="shadow rounded-t-lg"
           src={URL.replace(
             "{image_path}",
             fetchedData.poster_path
@@ -17,9 +17,9 @@ const SmallImage = ({ URL, fetchedData, styles = "" }) => {
           alt="new"
         />
       ) : "poster_path" in fetchedData ? (
-        <MdMovie className="ml-1 flex w-1/2 h-1/2 opacity-80 " />
+        <MdMovie className="flex w-full h-full opacity-80 scale-50" />
       ) : (
-        <GoPerson className="ml-1 flex w-1/2 h-1/2 opacity-80 " />
+        <GoPerson className="flex w-full h-full opacity-80 scale-50 " />
       )}
     </div>
   );

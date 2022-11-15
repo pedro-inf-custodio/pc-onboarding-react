@@ -15,22 +15,24 @@ const Credits = ({ detailData, setDetailData }) => {
   const [creditsData, setCreditsData] = useState();
   const { media_type, id } = useParams();
 
-  let searchUrl;
-
-  if (media_type === "tv") {
-    searchUrl = URL_DETAIL_TV_SERIES_CREDITS.replace(
-      "{id}",
-      id.toString()
-    ).replace("{season_number}", season.toString());
-  } else if (media_type === "movies") {
-    searchUrl = URL_DETAIL_MOVIE_CREDITS.replace("{id}", id.toString());
-  } else if (media_type === "person") {
-    searchUrl = URL_DETAIL_PERSON_MOVIES.replace("{id}", id.toString());
-  }
+  const mediaTypeCreditslFetch = (url) => {
+    fetchDataAPI(url.replace("{id}", id.toString()), setCreditsData);
+  };
 
   useEffect(() => {
-    fetchDataAPI(searchUrl, setCreditsData);
-  }, [season]);
+    if (media_type === "movies") {
+      mediaTypeCreditslFetch(URL_DETAIL_MOVIE_CREDITS);
+    } else if (media_type === "tv") {
+      mediaTypeCreditslFetch(
+        URL_DETAIL_TV_SERIES_CREDITS.replace(
+          "{season_number}",
+          season.toString()
+        )
+      );
+    } else if (media_type === "person") {
+      mediaTypeCreditslFetch(URL_DETAIL_PERSON_MOVIES);
+    }
+  }, [season, media_type, id]);
 
   return (
     <div className="mt-2">

@@ -1,10 +1,19 @@
 import React from "react";
 
-function SingleInfoCard({ infoLabel, data }) {
-  return data ? (
-    <div className="flex flex-col">
-      <p className="font-bold text-center p-4">{infoLabel}</p>
-      <p className="flex justify-center p-4">{data}</p>
+function SingleInfoCard({
+  labelTv,
+  labelPerson,
+  attributeTv,
+  attributePerson,
+}) {
+  return attributeTv || attributePerson ? (
+    <div className="flex flex-row">
+      <p className="text-justify font-bold leading-loose flex self-center p-4 ml-2 mr-2">
+        {attributeTv ? labelTv : labelPerson}
+      </p>
+      <p className="text-justify leading-loose text-sm flex self-center">
+        {attributeTv ? attributeTv : attributePerson}
+      </p>
     </div>
   ) : null;
 }
