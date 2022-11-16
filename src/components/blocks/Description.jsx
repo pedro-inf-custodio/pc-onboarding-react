@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import SingleInfoCard from "../atoms/detail/SingleInfoCard";
+import getLocalStorageData from "../../helpers/LoginTokens/getLocalStorageData";
 
 const Description = ({ detailData, overviewTitle = false }) => {
-  const [rating, setRating] = useState(detailData.vote_average);
+  const [rating, setRating] = useState(
+    getLocalStorageData("rating") ? getLocalStorageData("rating") : []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("rating", JSON.stringify(rating));
+  }, [rating]);
 
   return (
     <div className="flex flex-col mt-2 h-full">
@@ -43,23 +50,56 @@ const Description = ({ detailData, overviewTitle = false }) => {
               <div className="self-center ml-2">
                 <Rating
                   className="pb-1 self-center"
-                  initialValue={detailData.vote_average}
+                  initialValue={
+                    rating.filter((value) => value.movieId === detailData.id)
+                      .length > 0
+                      ? rating.filter(
+                          (value) => value.movieId === detailData.id
+                        )[0].myRating
+                      : detailData.vote_average
+                  }
                   size={20}
                   iconsCount={10}
                   transition={true}
                   allowFraction={true}
                   SVGstyle={{ display: "inline" }}
-                  onClick={(rate) => setRating(rate)}
+                  onClick={(rate) =>
+                    setRating(
+                      rating.filter((value) => value.movieId === detailData.id)
+                        .length > 0
+                        ? rating.map((value) =>
+                            value.movieId === detailData.id
+                              ? { movieId: detailData.id, myRating: rate }
+                              : { ...value }
+                          )
+                        : [
+                            ...rating,
+                            { movieId: detailData.id, myRating: rate },
+                          ]
+                    )
+                  }
                 />
               </div>
             </div>
 
             <div className="mr-4">
               <SingleInfoCard
-                labelTv={"Vote Count"}
+                labelTv={
+                  rating.filter((value) => value.movieId === detailData.id)
+                    .length > 0
+                    ? "My Vote"
+                    : "Vote Count"
+                }
                 labelPerson={null}
                 attributeTv={
-                  detailData.vote_count ? detailData.vote_count : null
+                  rating.filter((value) => value.movieId === detailData.id)
+                    .length > 0
+                    ? rating.filter(
+                        (value) => value.movieId === detailData.id
+                      )[0].myRating
+                    : detailData.vote_count
+                    ? detailData.vote_count
+                    : null
                 }
                 attributePerson={null}
               />

@@ -8,8 +8,9 @@ import MovieHeaderImage from "../assets/movie-start.jpg";
 import TvHeaderImage from "../assets/tvseries-start.jpg";
 import Oscar from "../assets/oscar.jpg";
 
-export default function Search({ showError, setShowError }) {
+export default function Search() {
   const [fetchedData, setFetchedData] = useState();
+  const [showError, setShowError] = useState(false);
   const [searchParams] = useSearchParams();
 
   let searchUrl = URL_API_SEARCH.replace("{query}", searchParams.get("search"));

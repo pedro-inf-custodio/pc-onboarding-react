@@ -5,7 +5,8 @@ import { URL_API_POPULAR_MOVIES } from "../helpers/constants.js";
 import { top5PopularMovies } from "../helpers/top5Selection";
 import MovieHeaderImage from "../assets/movie-start.jpg";
 
-export default function Home({ showError, setShowError }) {
+export default function Home() {
+  const [showError, setShowError] = useState(false);
   const [popularMoviesData, setPopularMoviesData] = useState();
 
   useEffect(() => {

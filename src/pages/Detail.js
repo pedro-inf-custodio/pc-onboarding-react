@@ -11,8 +11,9 @@ import DetailCard from "../components/blocks/DetailCard.jsx";
 import Error from "../components/blocks/Error";
 import Loading from "./Loading";
 
-const Detail = ({ showError, setShowError }) => {
+const Detail = () => {
   const [detailData, setDetailData] = useState();
+  const [showError, setShowError] = useState(false);
   const { media_type, id } = useParams();
 
   const mediaTypeFetch = (url) => {

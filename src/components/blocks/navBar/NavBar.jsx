@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../atoms/Button.jsx";
 import SearchBar from "./SearchBar.jsx";
 
-const NavBar = ({ search, setSearch }) => {
+const NavBar = () => {
+  const [search, setSearch] = useState("");
+
   return (
-    <div className="fixed top-8 w-full flex bg-stone-800 drop-shadow-md z-20">
+    <div className="fixed w-full top-6 flex bg-stone-800 drop-shadow-md z-20">
       <div className="flex justify-start">
         <Link to="/">
           <Button
