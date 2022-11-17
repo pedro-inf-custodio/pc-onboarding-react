@@ -10,10 +10,10 @@ import TvSeries from "./pages/TvSeries";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SignOutBar from "./components/blocks/Auth/SignOutBar";
-import getToken from "./helpers/LoginTokens/getToken";
+import getLocalStorageData from "./helpers/LoginTokens/getLocalStorageData";
 
 export default function App() {
-  const token = getToken();
+  const token = getLocalStorageData("token");
   const [isLoggedIn, setIsLoggedIn] = useState(token ? true : false);
 
   useEffect(() => {

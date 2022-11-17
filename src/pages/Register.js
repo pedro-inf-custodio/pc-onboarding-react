@@ -9,7 +9,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("credentials", JSON.stringify({ username, password }));
+    localStorage.setItem(
+      "credentials_" + username,
+      JSON.stringify({ username, password })
+    );
     navigate("/");
   };
 

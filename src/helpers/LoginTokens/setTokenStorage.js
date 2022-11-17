@@ -1,5 +1,5 @@
-function setTokenStorage(userToken) {
-  localStorage.setItem("token", JSON.stringify(userToken));
+function setTokenStorage(token) {
+  localStorage.setItem("token", JSON.stringify(token));
 }
 
 export default setTokenStorage;

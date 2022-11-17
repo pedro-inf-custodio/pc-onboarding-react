@@ -2,14 +2,30 @@ import React, { useState, useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import SingleInfoCard from "../atoms/detail/SingleInfoCard";
 import getLocalStorageData from "../../helpers/LoginTokens/getLocalStorageData";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../../store/index";
 
 const Description = ({ detailData, overviewTitle = false }) => {
-  const [rating, setRating] = useState(
-    getLocalStorageData("rating") ? getLocalStorageData("rating") : []
-  );
+  const rating = useSelector((state) => state.rating);
+  const dispatch = useDispatch();
+  const setRating = (rate) => {
+    dispatch(
+      actions.setRating(
+        rating.filter((value) => value.movieId === detailData.id).length > 0
+          ? rating.map((value) =>
+              value.movieId === detailData.id
+                ? { movieId: detailData.id, myRating: rate }
+                : { ...value }
+            )
+          : [...rating, { movieId: detailData.id, myRating: rate }]
+      )
+    );
+  };
+
+  const token = getLocalStorageData("token");
 
   useEffect(() => {
-    localStorage.setItem("rating", JSON.stringify(rating));
+    localStorage.setItem("rating_" + token.token, JSON.stringify(rating));
   }, [rating]);
 
   return (
@@ -63,20 +79,22 @@ const Description = ({ detailData, overviewTitle = false }) => {
                   transition={true}
                   allowFraction={true}
                   SVGstyle={{ display: "inline" }}
-                  onClick={(rate) =>
-                    setRating(
-                      rating.filter((value) => value.movieId === detailData.id)
-                        .length > 0
-                        ? rating.map((value) =>
-                            value.movieId === detailData.id
-                              ? { movieId: detailData.id, myRating: rate }
-                              : { ...value }
-                          )
-                        : [
-                            ...rating,
-                            { movieId: detailData.id, myRating: rate },
-                          ]
-                    )
+                  onClick={
+                    (rate) => setRating(rate)
+
+                    // setRating(
+                    //   rating.filter((value) => value.movieId === detailData.id)
+                    //     .length > 0
+                    //     ? rating.map((value) =>
+                    //         value.movieId === detailData.id
+                    //           ? { movieId: detailData.id, myRating: rate }
+                    //           : { ...value }
+                    //       )
+                    //     : [
+                    //         ...rating,
+                    //         { movieId: detailData.id, myRating: rate },
+                    //       ]
+                    // )
                   }
                 />
               </div>

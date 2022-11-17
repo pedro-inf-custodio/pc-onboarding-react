@@ -4,7 +4,9 @@ import getLocalStorageData from "../../../helpers/LoginTokens/getLocalStorageDat
 
 const SignOutBar = ({ setIsLoggedIn }) => {
   let navigate = useNavigate();
-  const credentials = getLocalStorageData("credentials");
+  const token = getLocalStorageData("token");
+  const credentials = getLocalStorageData("credentials_" + token.token);
+
   return (
     <div className="w-full h-6 fixed top-0 z-10 bg-stone-200 text-sm text-stone-800 flex justify-end">
       <button

@@ -18,7 +18,7 @@ const Login = ({ setIsLoggedIn }) => {
     });
 
     if (credentialsMatch({ username: username, password: password })) {
-      setTokenStorage(token);
+      setTokenStorage({ token: username });
       setIsLoggedIn(true);
     } else {
       setCredentialsError(true);
