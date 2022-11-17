@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   URL_DETAIL_MOVIE,
   URL_DETAIL_TV_SERIES,
@@ -10,11 +10,14 @@ import Credits from "../components/blocks/Credits.jsx";
 import DetailCard from "../components/blocks/DetailCard.jsx";
 import Error from "../components/blocks/Error";
 import Loading from "./Loading";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData.js";
 
 const Detail = () => {
   const [detailData, setDetailData] = useState();
   const [showError, setShowError] = useState(false);
   const { media_type, id } = useParams();
+  const location = useLocation();
+  const token = getLocalStorageData("token");
 
   const mediaTypeFetch = (url) => {
     fetchDataAPI(
@@ -31,23 +34,24 @@ const Detail = () => {
       mediaTypeFetch(URL_DETAIL_TV_SERIES);
     } else if (media_type === "person") {
       mediaTypeFetch(URL_DETAIL_PERSON);
+    } else {
+      setShowError(true);
     }
+    localStorage.setItem("previousPage_" + token.token, location.pathname);
   }, [media_type, id]);
 
-  return detailData ? (
+  return detailData && showError === false ? (
+    <div className={showError ? "blur" : ""}>
+      <div className="w-screen py-16 pr-32 pl-32">
+        <DetailCard detailData={detailData} />
+        <Credits detailData={detailData} setDetailData={setDetailData} />
+      </div>
+    </div>
+  ) : showError === true ? (
     <div>
-      <div>
-        {showError ? (
-          <Error showError={showError} setShowError={setShowError} />
-        ) : null}
-      </div>
-
-      <div className={showError ? "blur" : ""}>
-        <div className="w-screen py-16 pr-32 pl-32">
-          <DetailCard detailData={detailData} />
-          <Credits detailData={detailData} setDetailData={setDetailData} />
-        </div>
-      </div>
+      {showError ? (
+        <Error showError={showError} setShowError={setShowError} />
+      ) : null}
     </div>
   ) : (
     <Loading />

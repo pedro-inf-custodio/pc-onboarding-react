@@ -18,7 +18,9 @@ const Pagination = ({ page, setPage }) => {
       {Array.from({ length: 10 }).map((pageNumber, index) => (
         <Button
           key={index.toString()}
-          onClick={() => setPage(index + 1)}
+          onClick={() => {
+            setPage(index + 1);
+          }}
           buttonText={index + 1}
           addedStyles={`mt-10 m-1 w-8 flex justify-center rounded font-thin p-2 ${
             index + 1 === page

@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { loginUser } from "../helpers/LoginTokens/loginUser";
 import credentialsMatch from "../helpers/LoginTokens/credentialsMatch";
 import setTokenStorage from "../helpers/LoginTokens/setTokenStorage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actions } from "../store/index";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [credentialsError, setCredentialsError] = useState(false);
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +25,15 @@ const Login = ({ setIsLoggedIn }) => {
     if (credentialsMatch({ username: username, password: password })) {
       setTokenStorage({ token: username });
       setIsLoggedIn(true);
+
+      dispatch(
+        actions.setRating(
+          getLocalStorageData("rating_" + username)
+            ? getLocalStorageData("rating_" + username)
+            : []
+        )
+      );
+      navigate(localStorage.getItem("previousPage_" + username));
     } else {
       setCredentialsError(true);
     }

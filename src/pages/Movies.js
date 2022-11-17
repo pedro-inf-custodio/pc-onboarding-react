@@ -4,16 +4,31 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_API_TOP_RATED_MOVIES } from "../helpers/constants.js";
 import MovieHeaderImage from "../assets/movie-start.jpg";
 import Pagination from "../components/blocks/Pagination";
+import { useNavigate } from "react-router-dom";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
 
 const Movies = () => {
+  const token = getLocalStorageData("token");
   const [moviesData, setMoviesData] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem("previousPage_" + token.token)
+      ? Number(
+          localStorage
+            .getItem("previousPage_" + token.token)
+            .split("/")
+            .slice(-1)
+        )
+      : 1
+  );
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetchDataAPI(
       URL_API_TOP_RATED_MOVIES.replace("{page_number}", page.toString()),
       setMoviesData
     );
+    navigate("/movies/" + page);
+    localStorage.setItem("previousPage_" + token.token, "/movies/" + page);
   }, [page]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import SingleInfoCard from "../atoms/detail/SingleInfoCard";
 import getLocalStorageData from "../../helpers/LoginTokens/getLocalStorageData";
@@ -10,7 +10,7 @@ const Description = ({ detailData, overviewTitle = false }) => {
   const dispatch = useDispatch();
   const setRating = (rate) => {
     dispatch(
-      actions.setRating(
+      actions?.setRating(
         rating.filter((value) => value.movieId === detailData.id).length > 0
           ? rating.map((value) =>
               value.movieId === detailData.id
@@ -67,7 +67,7 @@ const Description = ({ detailData, overviewTitle = false }) => {
                 <Rating
                   className="pb-1 self-center"
                   initialValue={
-                    rating.filter((value) => value.movieId === detailData.id)
+                    rating?.filter((value) => value.movieId === detailData.id)
                       .length > 0
                       ? rating.filter(
                           (value) => value.movieId === detailData.id
@@ -79,23 +79,7 @@ const Description = ({ detailData, overviewTitle = false }) => {
                   transition={true}
                   allowFraction={true}
                   SVGstyle={{ display: "inline" }}
-                  onClick={
-                    (rate) => setRating(rate)
-
-                    // setRating(
-                    //   rating.filter((value) => value.movieId === detailData.id)
-                    //     .length > 0
-                    //     ? rating.map((value) =>
-                    //         value.movieId === detailData.id
-                    //           ? { movieId: detailData.id, myRating: rate }
-                    //           : { ...value }
-                    //       )
-                    //     : [
-                    //         ...rating,
-                    //         { movieId: detailData.id, myRating: rate },
-                    //       ]
-                    // )
-                  }
+                  onClick={(rate) => setRating(rate)}
                 />
               </div>
             </div>
@@ -103,14 +87,14 @@ const Description = ({ detailData, overviewTitle = false }) => {
             <div className="mr-4">
               <SingleInfoCard
                 labelTv={
-                  rating.filter((value) => value.movieId === detailData.id)
+                  rating?.filter((value) => value.movieId === detailData.id)
                     .length > 0
                     ? "My Vote"
                     : "Vote Count"
                 }
                 labelPerson={null}
                 attributeTv={
-                  rating.filter((value) => value.movieId === detailData.id)
+                  rating?.filter((value) => value.movieId === detailData.id)
                     .length > 0
                     ? rating.filter(
                         (value) => value.movieId === detailData.id

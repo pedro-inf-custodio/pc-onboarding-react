@@ -3,6 +3,7 @@ import { URL_IMAGE_PATH } from "../../../helpers/constants.js";
 import { Link } from "react-router-dom";
 import LargeImage from "../../atoms/images/LargeImage.jsx";
 import Description from "../Description.jsx";
+import TitleLarge from "../../atoms/titles/TitleLarge.jsx";
 
 export const SingleLargeContentCard = ({ contentData, media_type }) => {
   return (
@@ -22,9 +23,7 @@ export const SingleLargeContentCard = ({ contentData, media_type }) => {
                   : `/${media_type}/${contentData.id}`
               }
             >
-              <p className="capitalize text-4xl font-bold text-center p-2">
-                {contentData.title ? contentData.title : contentData.name}
-              </p>
+              <TitleLarge detailData={contentData} />
             </Link>
           </div>
           <Description

@@ -6,9 +6,7 @@ const token = getLocalStorageData("token");
 export const ratingSlice = createSlice({
   name: "rating",
   initialState: {
-    rating: getLocalStorageData("rating_" + token.token)
-      ? getLocalStorageData("rating_" + token.token)
-      : [],
+    rating: [],
   },
   reducers: {
     setRating: (state, action) => {

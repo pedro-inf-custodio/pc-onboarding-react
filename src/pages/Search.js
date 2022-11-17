@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_API_SEARCH } from "../helpers/constants.js";
 import SearchContentDisplay from "../components/blocks/SearchContentDisplay";
@@ -7,16 +7,23 @@ import Error from "../components/blocks/Error";
 import MovieHeaderImage from "../assets/movie-start.jpg";
 import TvHeaderImage from "../assets/tvseries-start.jpg";
 import Oscar from "../assets/oscar.jpg";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData.js";
 
 export default function Search() {
   const [fetchedData, setFetchedData] = useState();
   const [showError, setShowError] = useState(false);
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const token = getLocalStorageData("token");
 
   let searchUrl = URL_API_SEARCH.replace("{query}", searchParams.get("search"));
 
   useEffect(() => {
     fetchDataAPI(searchUrl, setFetchedData, setShowError);
+    localStorage.setItem(
+      "previousPage_" + token.token,
+      location.pathname + location.search
+    );
   }, [searchUrl]);
 
   return (

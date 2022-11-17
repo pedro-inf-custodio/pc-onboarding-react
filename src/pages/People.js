@@ -4,16 +4,31 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_POPULAR_PEOPLE } from "../helpers/constants.js";
 import Oscar from "../assets/oscar.jpg";
 import Pagination from "../components/blocks/Pagination";
+import { useNavigate } from "react-router-dom";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData.js";
 
 const People = () => {
+  const token = getLocalStorageData("token");
   const [peopleData, setPeopleData] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem("previousPage_" + token.token)
+      ? Number(
+          localStorage
+            .getItem("previousPage_" + token.token)
+            .split("/")
+            .slice(-1)
+        )
+      : 1
+  );
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetchDataAPI(
       URL_POPULAR_PEOPLE.replace("{page_number}", page.toString()),
       setPeopleData
     );
+    navigate("/people/" + page);
+    localStorage.setItem("previousPage_" + token.token, "/people/" + page);
   }, [page, !peopleData]);
 
   return (

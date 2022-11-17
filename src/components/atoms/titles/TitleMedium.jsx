@@ -1,14 +1,14 @@
 import React from "react";
+import { ellipsisLongTitle } from "../../../helpers/ellipsisLongTitle";
 
 const TitleMedium = ({ data, styles = "" }) => {
   return (
-    <div className="grid content-center transition-all rounded hover:bg-black hover:text-stone-100">
+    <div className="flex justify-center transition-all rounded hover:bg-black hover:text-stone-100">
       <p className={`text-lg font-bold text-center ${styles}`}>
-        {`${data.title ? data.title : data.name}
-        ${
-          data.title !== data.original_title || data.name !== data.original_name
-            ? `${data.original_title ? data.original_title : ""}`
-            : ""
+        {`${
+          data.title
+            ? ellipsisLongTitle(data.title, 40)
+            : ellipsisLongTitle(data.name, 40)
         }`}
       </p>
     </div>

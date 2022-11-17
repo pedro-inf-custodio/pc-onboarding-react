@@ -9,14 +9,15 @@ const Error = ({ showError, setShowError }) => {
           <ImCancelCircle
             className="cursor-pointer"
             size={20}
-            onClick={() => setShowError(false)}
+            onClick={() => {
+              setShowError(false);
+            }}
           />
         </div>
 
-        <p className="self-top">
-          The content you've inserted in the search bar couldn't be found in our
-          database, please insert a valid name.{" "}
-          <p className="font-bold">Click in the Home button or search again.</p>
+        <p className="self-top font-bold">
+          The content you've inserted either on the search bar or on the URL
+          couldn't be found in our database, please insert a valid value.{" "}
         </p>
       </div>
     </div>

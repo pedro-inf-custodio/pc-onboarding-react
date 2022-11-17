@@ -11,17 +11,20 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SignOutBar from "./components/blocks/Auth/SignOutBar";
 import getLocalStorageData from "./helpers/LoginTokens/getLocalStorageData";
+import Error from "./components/blocks/Error";
 
 export default function App() {
   const token = getLocalStorageData("token");
   const [isLoggedIn, setIsLoggedIn] = useState(token ? true : false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
       setTimeout(() => {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
-      }, 20000000);
+        navigate("/");
+      }, 5000);
     }
   }, [isLoggedIn]);
 
@@ -33,11 +36,12 @@ export default function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/tv" element={<TvSeries />} />
-            <Route path="/people" element={<People />} />
+            <Route path="/movies/:page_number" element={<Movies />} />
+            <Route path="/tv/:page_number" element={<TvSeries />} />
+            <Route path="/people/:page_number" element={<People />} />
             <Route path="/results" element={<Search />} />
             <Route path="/:media_type/:id" element={<Detail />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </>
       ) : (

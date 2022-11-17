@@ -14,6 +14,7 @@ const SignOutBar = ({ setIsLoggedIn }) => {
         onClick={(e) => {
           localStorage.removeItem("token");
           setIsLoggedIn(false);
+          localStorage.removeItem("previousPage_" + token.token);
           navigate("/");
         }}
       >{`Sign Out ${credentials.username}`}</button>

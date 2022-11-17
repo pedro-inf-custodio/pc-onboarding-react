@@ -13,7 +13,7 @@ export const SingleSmallContentCard = ({ fetchedData, media_type }) => {
           fetchedData={fetchedData}
           styles="relative rounded"
         />
-        <div className="bg-stone-800 text-stone-200 w-full p-2 rounded-b-lg">
+        <div className="grid content-center bg-stone-800 text-stone-200 w-full p-2 h-[70px] rounded-b-lg">
           <Link
             to={
               media_type === "movie"

@@ -11,6 +11,13 @@ const DetailCard = ({ detailData }) => {
       <div className="rounded-t-lg bg-stone-800 text-white">
         <TitleLarge detailData={detailData} />
       </div>
+
+      <p className="flex justify-center p-2 text-lg">
+        {detailData.title !== detailData.original_title ||
+        detailData.name !== detailData.original_name
+          ? `${detailData.original_title ? detailData.original_title : ""}`
+          : ""}
+      </p>
       <MediumImage URL_IMAGE_PATH={URL_IMAGE_PATH} detailData={detailData} />
       <Tagline detailData={detailData} />
       <Description detailData={detailData} overviewTitle={true} />

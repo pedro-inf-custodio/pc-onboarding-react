@@ -4,16 +4,31 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_TOP_RATED_TV_SERIES } from "../helpers/constants.js";
 import TvHeaderImage from "../assets/tvseries-start.jpg";
 import Pagination from "../components/blocks/Pagination";
+import { useNavigate } from "react-router-dom";
+import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
 
 const TvSeries = () => {
+  const token = getLocalStorageData("token");
   const [tvData, setTvData] = useState();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    localStorage.getItem("previousPage_" + token.token)
+      ? Number(
+          localStorage
+            .getItem("previousPage_" + token.token)
+            .split("/")
+            .slice(-1)
+        )
+      : 1
+  );
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetchDataAPI(
       URL_TOP_RATED_TV_SERIES.replace("{page_number}", page.toString()),
       setTvData
     );
+    navigate("/tv/" + page);
+    localStorage.setItem("previousPage_" + token.token, "/tv/" + page);
   }, [page]);
 
   return (
