@@ -1,7 +1,4 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
-
-const token = getLocalStorageData("token");
 
 export const ratingSlice = createSlice({
   name: "rating",

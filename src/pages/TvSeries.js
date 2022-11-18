@@ -6,20 +6,12 @@ import TvHeaderImage from "../assets/tvseries-start.jpg";
 import Pagination from "../components/blocks/Pagination";
 import { useNavigate } from "react-router-dom";
 import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
+import { initialStatePages } from "../helpers/initialStatePages";
 
 const TvSeries = () => {
   const token = getLocalStorageData("token");
   const [tvData, setTvData] = useState();
-  const [page, setPage] = useState(
-    localStorage.getItem("previousPage_" + token.token)
-      ? Number(
-          localStorage
-            .getItem("previousPage_" + token.token)
-            .split("/")
-            .slice(-1)
-        )
-      : 1
-  );
+  const [page, setPage] = useState(initialStatePages(token));
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -27,8 +19,8 @@ const TvSeries = () => {
       URL_TOP_RATED_TV_SERIES.replace("{page_number}", page.toString()),
       setTvData
     );
-    navigate("/tv/" + page);
-    localStorage.setItem("previousPage_" + token.token, "/tv/" + page);
+    navigate("/tv?page=" + page);
+    localStorage.setItem("previousPage_" + token.token, "/tv?page=" + page);
   }, [page]);
 
   return (

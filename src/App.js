@@ -24,7 +24,7 @@ export default function App() {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
         navigate("/");
-      }, 5000);
+      }, 50000000);
     }
   }, [isLoggedIn]);
 
@@ -36,9 +36,9 @@ export default function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/movies/:page_number" element={<Movies />} />
-            <Route path="/tv/:page_number" element={<TvSeries />} />
-            <Route path="/people/:page_number" element={<People />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/tv" element={<TvSeries />} />
+            <Route path="/people" element={<People />} />
             <Route path="/results" element={<Search />} />
             <Route path="/:media_type/:id" element={<Detail />} />
             <Route path="*" element={<Error />} />

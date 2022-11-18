@@ -19,7 +19,7 @@ const NavBar = () => {
             }`}
           />
         </Link>
-        <Link to="/movies/1">
+        <Link to="/movies?page=1">
           <Button
             onClick={null}
             buttonText={"Movies"}
@@ -28,7 +28,7 @@ const NavBar = () => {
             }`}
           />
         </Link>
-        <Link to="/tv/1">
+        <Link to="/tv?page=1">
           <Button
             onClick={null}
             buttonText={"Tv series"}
@@ -37,7 +37,7 @@ const NavBar = () => {
             }`}
           />
         </Link>
-        <Link to="/people/1">
+        <Link to="/people?page=1">
           <Button
             onClick={null}
             buttonText={"People"}

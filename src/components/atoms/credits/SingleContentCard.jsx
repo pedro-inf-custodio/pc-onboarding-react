@@ -5,9 +5,9 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SingleContentCard = ({ contentData, index }) => {
+const SingleContentCard = ({ contentData, index, isTvShow }) => {
   const [hidden, setHidden] = useState(true);
-
+  console.log(contentData);
   return (
     <div key={index} className="p-2 overflow-y-scroll">
       <div
@@ -18,7 +18,9 @@ const SingleContentCard = ({ contentData, index }) => {
         <div className="flex justify-between mt-1">
           <p className="text-sm">
             {contentData.name ? (
-              <Link to={`/person/${contentData.id}`}>{contentData.name}</Link>
+              <Link to={`${isTvShow ? "/tv/" : "/people/"}${contentData.id}`}>
+                {contentData.name}
+              </Link>
             ) : (
               <Link to={`/movies/${contentData.id}`}>{contentData.title}</Link>
             )}

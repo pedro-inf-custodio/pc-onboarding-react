@@ -32,7 +32,7 @@ const Detail = () => {
       mediaTypeFetch(URL_DETAIL_MOVIE);
     } else if (media_type === "tv") {
       mediaTypeFetch(URL_DETAIL_TV_SERIES);
-    } else if (media_type === "person") {
+    } else if (media_type === "people") {
       mediaTypeFetch(URL_DETAIL_PERSON);
     } else {
       setShowError(true);
