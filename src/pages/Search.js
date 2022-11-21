@@ -4,10 +4,9 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_API_SEARCH } from "../helpers/constants.js";
 import SearchContentDisplay from "../components/blocks/SearchContentDisplay";
 import Error from "../components/blocks/Error";
-import MovieHeaderImage from "../assets/movie-start.jpg";
-import TvHeaderImage from "../assets/tvseries-start.jpg";
-import Oscar from "../assets/oscar.jpg";
 import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData.js";
+import { relevanceOrderSearch } from "../helpers/relevanceOrderSearch.js";
+import Loading from "./Loading.js";
 
 export default function Search() {
   const [fetchedData, setFetchedData] = useState();
@@ -15,11 +14,12 @@ export default function Search() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const token = getLocalStorageData("token");
+  const relevanceOrderArray = relevanceOrderSearch(fetchedData);
 
   let searchUrl = URL_API_SEARCH.replace("{query}", searchParams.get("search"));
 
   useEffect(() => {
-    fetchDataAPI(searchUrl, setFetchedData, setShowError);
+    fetchDataAPI(searchUrl, setFetchedData, setShowError, true);
     localStorage.setItem(
       "previousPage_" + token.token,
       location.pathname + location.search
@@ -27,7 +27,7 @@ export default function Search() {
   }, [searchUrl]);
 
   return (
-    <div>
+    <div className="py-20">
       <div>
         {showError ? (
           <Error showError={showError} setShowError={setShowError} />
@@ -35,50 +35,24 @@ export default function Search() {
       </div>
 
       <div className={showError ? "blur" : ""}>
-        <div
-          style={{ backgroundImage: `url(${MovieHeaderImage})` }}
-          className="relative h-56 shadow bg-fixed bg-cover saturate-50"
-        >
-          <span className="absolute top-10 left-0 font-bold text-9xl p-4 text-white">
-            Movies
-          </span>
-        </div>
-
-        <SearchContentDisplay
-          data={fetchedData}
-          media_type="movie"
-          title="Movies"
-        />
-
-        <div
-          style={{ backgroundImage: `url(${TvHeaderImage})` }}
-          className="relative h-56 shadow bg-fixed bg-bottom bg-cover saturate-50"
-        >
-          <span className="absolute top-10 right-0 font-bold text-9xl p-4 text-white">
-            TV Shows
-          </span>
-        </div>
-
-        <SearchContentDisplay
-          data={fetchedData}
-          media_type="tv"
-          title="Tv Series"
-        />
-
-        <div
-          style={{ backgroundImage: `url(${Oscar})` }}
-          className="relative h-56 shadow bg-fixed bg-top bg-cover saturate-50"
-        >
-          <span className="absolute top-10 left-0 font-bold text-9xl p-4 text-white">
-            People
-          </span>
-        </div>
-
-        <SearchContentDisplay
-          data={fetchedData}
-          media_type="person"
-          title="People"
-        />
+        {relevanceOrderArray ? (
+          relevanceOrderArray.map((media_type) => (
+            <SearchContentDisplay
+              key={media_type}
+              data={fetchedData}
+              media_type={media_type}
+              title={
+                media_type === "movie"
+                  ? "Movies"
+                  : media_type === "tv"
+                  ? "Tv Series"
+                  : "People"
+              }
+            />
+          ))
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );

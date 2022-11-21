@@ -5,12 +5,12 @@ import setTokenStorage from "../helpers/LoginTokens/setTokenStorage";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actions } from "../store/index";
-import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [credentialsError, setCredentialsError] = useState(false);
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,13 +26,7 @@ const Login = ({ setIsLoggedIn }) => {
       setTokenStorage({ token: username });
       setIsLoggedIn(true);
 
-      dispatch(
-        actions.setRating(
-          getLocalStorageData("rating_" + username)
-            ? getLocalStorageData("rating_" + username)
-            : []
-        )
-      );
+      dispatch(actions.setInit({ username: username }));
       navigate(localStorage.getItem("previousPage_" + username));
     } else {
       setCredentialsError(true);

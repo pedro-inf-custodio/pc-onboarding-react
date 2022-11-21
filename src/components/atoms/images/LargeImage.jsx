@@ -7,7 +7,7 @@ const LargeImage = ({ URL, contentData, styles = "" }) => {
     <div className="flex">
       {contentData.poster_path || contentData.profile_path ? (
         <img
-          className={`w-96 shadow transition-all hover:scale-[0.99] ${styles}`}
+          className={`w-96 shadow transition-all ${styles}`}
           src={URL.replace(
             "{image_path}",
             contentData.poster_path

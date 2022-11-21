@@ -4,30 +4,36 @@ import { fetchDataAPI } from "../helpers/fetchDataAPI.js";
 import { URL_TOP_RATED_TV_SERIES } from "../helpers/constants.js";
 import TvHeaderImage from "../assets/tvseries-start.jpg";
 import Pagination from "../components/blocks/Pagination";
-import { useNavigate } from "react-router-dom";
-import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData";
+import { useLocation, useNavigate } from "react-router-dom";
 import { initialStatePages } from "../helpers/initialStatePages";
+import setLocalStoragePrevPage from "../helpers/setLocalStoragePrevPage";
 
 const TvSeries = () => {
-  const token = getLocalStorageData("token");
-  const [tvData, setTvData] = useState();
-  const [page, setPage] = useState(initialStatePages(token));
+  let location = useLocation();
   let navigate = useNavigate();
+  const [tvData, setTvData] = useState();
+  const [page, setPage] = useState(initialStatePages(location));
 
   useEffect(() => {
+    setPage(Number(location.search.split("=")[1]));
+  }, [location.search]);
+
+  useEffect(() => {
+    document.title = `/tv?page=${page}`;
+
     fetchDataAPI(
       URL_TOP_RATED_TV_SERIES.replace("{page_number}", page.toString()),
       setTvData
     );
     navigate("/tv?page=" + page);
-    localStorage.setItem("previousPage_" + token.token, "/tv?page=" + page);
+    setLocalStoragePrevPage("/tv?page=" + page);
   }, [page]);
 
   return (
-    <div className="mt-10 flex-row ">
+    <div className="mt-16 flex-row ">
       <div
         style={{ backgroundImage: `url(${TvHeaderImage})` }}
-        className="relative h-96 shadow bg-fixed bg-cover bg-bottom saturate-50"
+        className="relative h-80 shadow bg-fixed bg-cover bg-bottom saturate-50"
       >
         <div className="absolute top-0 left-0 font-bold text-9xl p-4 text-stone-900">
           <span className="p-4 text-stone-900">200 Top Rated </span>

@@ -2,7 +2,7 @@ import React from "react";
 import TitleLarge from "../atoms/titles/TitleLarge";
 import MediumImage from "../atoms/images/MediumImage";
 import Tagline from "../atoms/detail/Tagline";
-import Description from "./Description";
+import Description from "./description/Description";
 import { URL_IMAGE_PATH } from "../../helpers/constants";
 
 const DetailCard = ({ detailData }) => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-const DropdownList = ({ season, SetSeason, Seasons }) => {
+const DropdownList = ({ season, setSeason, Seasons }) => {
   return (
     <div className="flex shadow">
       <select
@@ -8,7 +8,7 @@ const DropdownList = ({ season, SetSeason, Seasons }) => {
         id="dropdown"
         defaultValue={1}
         className="rounded transition-all hover:bg-stone-300 w-16"
-        onChange={(e) => SetSeason(e.target.value)}
+        onChange={(e) => setSeason(e.target.value)}
       >
         {Array.from({ length: Seasons }).map((pageNumber, index) => (
           <option

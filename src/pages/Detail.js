@@ -10,14 +10,13 @@ import Credits from "../components/blocks/Credits.jsx";
 import DetailCard from "../components/blocks/DetailCard.jsx";
 import Error from "../components/blocks/Error";
 import Loading from "./Loading";
-import getLocalStorageData from "../helpers/LoginTokens/getLocalStorageData.js";
+import setLocalStoragePrevPage from "../helpers/setLocalStoragePrevPage.js";
 
 const Detail = () => {
   const [detailData, setDetailData] = useState();
   const [showError, setShowError] = useState(false);
   const { media_type, id } = useParams();
   const location = useLocation();
-  const token = getLocalStorageData("token");
 
   const mediaTypeFetch = (url) => {
     fetchDataAPI(
@@ -37,14 +36,14 @@ const Detail = () => {
     } else {
       setShowError(true);
     }
-    localStorage.setItem("previousPage_" + token.token, location.pathname);
+    setLocalStoragePrevPage(location.pathname);
   }, [media_type, id]);
 
   return detailData && showError === false ? (
     <div className={showError ? "blur" : ""}>
-      <div className="w-screen py-16 pr-32 pl-32">
+      <div className="w-screen py-24 pr-32 pl-32">
         <DetailCard detailData={detailData} />
-        <Credits detailData={detailData} setDetailData={setDetailData} />
+        <Credits detailData={detailData} />
       </div>
     </div>
   ) : showError === true ? (

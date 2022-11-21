@@ -7,8 +7,8 @@ const TitleMedium = ({ data, styles = "" }) => {
       <p className={`text-lg font-bold text-center ${styles}`}>
         {`${
           data.title
-            ? ellipsisLongTitle(data.title, 40)
-            : ellipsisLongTitle(data.name, 40)
+            ? ellipsisLongTitle(data.title, 30)
+            : ellipsisLongTitle(data.name, 30)
         }`}
       </p>
     </div>

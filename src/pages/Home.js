@@ -25,10 +25,10 @@ export default function Home() {
     <div>
       {showError ? <Error /> : null}
 
-      <div className={`mt-10 flex-row ${showError ? "blur" : ""}`}>
+      <div className={`mt-16 flex-row ${showError ? "blur" : ""}`}>
         <div
           style={{ backgroundImage: `url(${MovieHeaderImage})` }}
-          className="relative h-96 shadow bg-fixed bg-cover bg-top saturate-50"
+          className="relative h-80 shadow bg-fixed bg-cover bg-top saturate-50"
         >
           <span className="absolute top-0 font-bold text-9xl p-4 text-white">
             Popular Movies

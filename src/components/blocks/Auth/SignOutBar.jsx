@@ -8,7 +8,7 @@ const SignOutBar = ({ setIsLoggedIn }) => {
   const credentials = getLocalStorageData("credentials_" + token.token);
 
   return (
-    <div className="w-full h-6 fixed top-0 z-10 bg-stone-200 text-sm text-stone-800 flex justify-end">
+    <div className="w-full h-6 fixed top-0 z-20 bg-stone-200 text-sm text-stone-800 flex justify-end">
       <button
         className="pr-2 h-6 underline"
         onClick={(e) => {

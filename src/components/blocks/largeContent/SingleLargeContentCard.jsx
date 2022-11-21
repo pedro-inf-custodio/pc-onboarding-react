@@ -1,14 +1,24 @@
 import React from "react";
 import { URL_IMAGE_PATH } from "../../../helpers/constants.js";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LargeImage from "../../atoms/images/LargeImage.jsx";
-import Description from "../Description.jsx";
+import Description from "../description/Description.jsx";
 import TitleLarge from "../../atoms/titles/TitleLarge.jsx";
+import RankingCircle from "../../atoms/RankingCircle.jsx";
 
-export const SingleLargeContentCard = ({ contentData, media_type }) => {
+export const SingleLargeContentCard = ({ contentData, media_type, index }) => {
+  let location = useLocation();
+
   return (
     <div className="shadow rounded mb-2">
-      <div className="flex flex-row bg-white rounded-lg">
+      <div className="flex flex-row bg-white rounded-lg relative">
+        {location.search === "" ? (
+          <RankingCircle ranking={index + 1} />
+        ) : (
+          <RankingCircle
+            ranking={(location.search.split("=")[1] - 1) * 20 + index + 1}
+          />
+        )}
         <LargeImage
           URL={URL_IMAGE_PATH}
           contentData={contentData}
