@@ -1,23 +1,57 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import NavBar from "./components/blocks/NavBar/NavBar";
+import Detail from "./pages/Detail";
 import Home from "./pages/Home.js";
+import Movies from "./pages/Movies";
+import People from "./pages/People";
 import Search from "./pages/Search.js";
+import TvSeries from "./pages/TvSeries";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import SignOutBar from "./components/blocks/Auth/SignOutBar";
+import getLocalStorageData from "./helpers/LoginTokens/getLocalStorageData";
+import Error from "./components/blocks/Error";
 
 export default function App() {
-  const [search, setSearch] = useState("");
+  const token = getLocalStorageData("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(token ? true : false);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setTimeout(() => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        navigate("/");
+      }, 50000000);
+    }
+  }, [isLoggedIn]);
 
   return (
-    <div className="bg-slate-50 h-full font-light">
-      <SearchBar search={search} setSearch={setSearch} />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/results" element={<Search />} />
-      </Routes>
-
-      <Footer />
+    <div className="bg-gradient-to-tr from-stone-200 to-stone-50 h-full font-light antialiased">
+      {isLoggedIn ? (
+        <>
+          <SignOutBar setIsLoggedIn={setIsLoggedIn} />
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/tv" element={<TvSeries />} />
+            <Route path="/people" element={<People />} />
+            <Route path="/results" element={<Search />} />
+            <Route path="/:media_type/:id" element={<Detail />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="register" element={<Register />} />
+          </Routes>
+        </>
+      )}
     </div>
   );
 }
