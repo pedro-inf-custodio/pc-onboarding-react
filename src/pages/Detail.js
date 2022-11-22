@@ -42,7 +42,7 @@ const Detail = () => {
   return detailData && showError === false ? (
     <div className={showError ? "blur" : ""}>
       <div className="w-screen py-24 pr-32 pl-32">
-        <DetailCard detailData={detailData} />
+        <DetailCard detailData={detailData} media_type={media_type} />
         <Credits detailData={detailData} />
       </div>
     </div>

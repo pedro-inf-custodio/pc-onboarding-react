@@ -39,6 +39,7 @@ export const SingleLargeContentCard = ({ contentData, media_type, index }) => {
           <Description
             detailData={contentData}
             overviewTitle={media_type === "person" ? false : true}
+            media_type={media_type}
           />
         </div>
       </div>

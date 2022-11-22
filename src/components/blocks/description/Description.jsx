@@ -3,7 +3,7 @@ import SingleInfoCard from "../../atoms/detail/SingleInfoCard";
 import RatingInfoCard from "./RatingInfoCard";
 import HomepageInfoCard from "./HomepageInfoCard";
 
-const Description = ({ detailData, overviewTitle = false }) => {
+const Description = ({ detailData, media_type, overviewTitle = false }) => {
   return (
     <div className="flex flex-col mt-2 h-full">
       {overviewTitle ? (
@@ -29,7 +29,7 @@ const Description = ({ detailData, overviewTitle = false }) => {
           />
         </div>
 
-        <RatingInfoCard detailData={detailData} />
+        <RatingInfoCard detailData={detailData} media_type={media_type} />
         <HomepageInfoCard detailData={detailData} />
 
         <div className="flex justify-start shadow-sm ">

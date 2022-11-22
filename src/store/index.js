@@ -14,16 +14,23 @@ export const ratingSlice = createSlice({
     },
     setRating: (state, action) => {
       state.rating =
-        state.rating.filter((value) => value.movieId === action.payload.id)
-          .length > 0
+        state.rating.filter(
+          (value) => (value.movieId || value.tvId) === action.payload.id
+        ).length > 0
           ? state.rating.map((value) =>
+              action.payload.media_type === "movies" &&
               value.movieId === action.payload.id
                 ? { movieId: action.payload.id, myRating: action.payload.rate }
+                : action.payload.media_type === "tv" &&
+                  value.tvId === action.payload.id
+                ? { tvId: action.payload.id, myRating: action.payload.rate }
                 : { ...value }
             )
           : [
               ...state.rating,
-              { movieId: action.payload.id, myRating: action.payload.rate },
+              action.payload.media_type === "movies"
+                ? { movieId: action.payload.id, myRating: action.payload.rate }
+                : { tvId: action.payload.id, myRating: action.payload.rate },
             ];
 
       localStorage.setItem(

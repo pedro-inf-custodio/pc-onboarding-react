@@ -5,7 +5,7 @@ import Tagline from "../atoms/detail/Tagline";
 import Description from "./description/Description";
 import { URL_IMAGE_PATH } from "../../helpers/constants";
 
-const DetailCard = ({ detailData }) => {
+const DetailCard = ({ detailData, media_type }) => {
   return (
     <div className="flex flex-col bg-white rounded-lg shadow-lg">
       <div className="rounded-t-lg bg-stone-800 text-white">
@@ -20,7 +20,11 @@ const DetailCard = ({ detailData }) => {
       </p>
       <MediumImage URL_IMAGE_PATH={URL_IMAGE_PATH} detailData={detailData} />
       <Tagline detailData={detailData} />
-      <Description detailData={detailData} overviewTitle={true} />
+      <Description
+        detailData={detailData}
+        overviewTitle={true}
+        media_type={media_type}
+      />
     </div>
   );
 };

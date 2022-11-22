@@ -4,19 +4,21 @@ import getLocalStorageData from "../../../helpers/LoginTokens/getLocalStorageDat
 import SingleInfoCard from "../../atoms/detail/SingleInfoCard";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../store/index";
-import { useLocation } from "react-router-dom";
 
-const RatingInfoCard = ({ detailData }) => {
+const RatingInfoCard = ({ detailData, media_type }) => {
   const token = getLocalStorageData("token");
-  let location = useLocation();
   const rating = useSelector((state) => state.rating);
   const dispatch = useDispatch();
   const setRating = (rate) => {
     dispatch(
-      actions?.setRating({ rate: rate, id: detailData.id, token: token.token })
+      actions?.setRating({
+        rate: rate,
+        id: detailData.id,
+        token: token.token,
+        media_type: media_type,
+      })
     );
   };
-  const media_type = location.pathname.slice(1).split("/")[0];
 
   return (
     <div>
@@ -34,10 +36,12 @@ const RatingInfoCard = ({ detailData }) => {
               <Rating
                 className="pb-1 self-center"
                 initialValue={
-                  rating?.filter((value) => value.movieId === detailData.id)
-                    .length > 0
+                  rating?.filter(
+                    (value) => (value.movieId || value.tvId) === detailData.id
+                  ).length > 0
                     ? rating?.filter(
-                        (value) => value.movieId === detailData.id
+                        (value) =>
+                          (value.movieId || value.tvId) === detailData.id
                       )[0].myRating
                     : detailData.vote_average
                 }
@@ -54,17 +58,19 @@ const RatingInfoCard = ({ detailData }) => {
           <div className="mr-4">
             <SingleInfoCard
               labelTv={
-                rating?.filter((value) => value.movieId === detailData.id)
-                  .length > 0
+                rating?.filter(
+                  (value) => (value.movieId || value.tvId) === detailData.id
+                ).length > 0
                   ? "My Vote"
                   : "Vote Count"
               }
               labelPerson={null}
               attributeTv={
-                rating?.filter((value) => value.movieId === detailData.id)
-                  .length > 0
+                rating?.filter(
+                  (value) => (value.movieId || value.tvId) === detailData.id
+                ).length > 0
                   ? rating?.filter(
-                      (value) => value.movieId === detailData.id
+                      (value) => (value.movieId || value.tvId) === detailData.id
                     )[0].myRating
                   : detailData.vote_count
                   ? detailData.vote_count
